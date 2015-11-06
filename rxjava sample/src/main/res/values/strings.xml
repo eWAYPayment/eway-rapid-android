@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">rxJava Sample</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_rx_encryption">RxEncryptionActivity</string>
+    <string name="title_activity_code_look_up">CodeLookUpActivity</string>
 </resources>

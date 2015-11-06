@@ -3,6 +3,7 @@ package rapidandroidsdk.sdk.payment.eway.com.rxjavasample;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.sdk.payment.eway.com.rxjavasample.R;
 import android.support.v7.app.AppCompatActivity;
@@ -89,7 +90,7 @@ public class RxSampleMainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.submit)
-    public void sumitButton() {
+    public void submitButton() {
         try {
             progressDialog = ProgressDialog.show(RxSampleMainActivity.this, "Processing", "Processing payment", true);
             fetchDataFromForm();
@@ -108,6 +109,13 @@ public class RxSampleMainActivity extends AppCompatActivity {
 
     }
 
+    @OnClick(R.id.nextPage)
+    public void nextButton(){
+        Intent intent = new Intent(RxSampleMainActivity.this,RxEncryptionActivity.class);
+        startActivity(intent);
+
+    }
+
     private void fetchEncryptData(String cardNumber, String cvnNumber) throws RapidConfigurationException {
 
         final ArrayList<NVPair> values = new ArrayList<>();
@@ -115,7 +123,7 @@ public class RxSampleMainActivity extends AppCompatActivity {
         values.add(new NVPair("CVN", cvnNumber));
 
 
-      RapidAPI.rxEncryptValues(values)
+      subscription = RapidAPI.rxEncryptValues(values)
               .flatMap(new Func1<EncryptItemsResponse, Observable<SubmitPayResponse>>() {
                   @Override
                   public Observable<SubmitPayResponse> call(final EncryptItemsResponse response) {

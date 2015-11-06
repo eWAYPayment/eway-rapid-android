@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="rapidandroidsdk.sdk.payment.eway.com.rxjavasample.RxEncryptionActivity"
+            android:label="@string/title_activity_rx_encryption"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="rapidandroidsdk.sdk.payment.eway.com.rxjavasample.RxCodeLookUpActivity"
+            android:label="@string/title_activity_code_look_up"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
