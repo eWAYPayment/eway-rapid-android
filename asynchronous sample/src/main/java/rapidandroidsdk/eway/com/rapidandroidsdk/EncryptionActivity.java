@@ -62,8 +62,6 @@ public class EncryptionActivity extends AppCompatActivity {
         try {
             progressDialog = ProgressDialog.show(EncryptionActivity.this, "Processing", "Processing payment", true);
             fetchDataFromForm();
-            cardNumber ="4444333322221111";
-            cvnNumber ="123";
             encryptClient = new EncryptClient();
             encryptClient.EncrypValuesClient(cardNumber,cvnNumber);
         } catch (RapidConfigurationException e) {

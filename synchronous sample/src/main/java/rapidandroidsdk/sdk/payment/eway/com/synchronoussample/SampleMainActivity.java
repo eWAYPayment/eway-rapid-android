@@ -113,13 +113,7 @@ public class SampleMainActivity extends AppCompatActivity {
             Payment payment = new Payment();
             CardDetails cardDetails = new CardDetails();
             Customer customer = new Customer();
-            totalamount ="222";
-            cardName ="Jhon Smith";
-            cardNumber ="4444333322221111";
-            cvnNumber ="123";
-            expMonth="12";
-            expYear="2025";
-             payment.setTotalAmount(Integer.parseInt(totalamount));
+            payment.setTotalAmount(Integer.parseInt(totalamount));
             cardDetails.setName(cardName);
             //Encrypt card data before sending
             try {
@@ -220,8 +214,7 @@ public class SampleMainActivity extends AppCompatActivity {
         List<String> ret = new ArrayList(end - begin + 1);
 
         for (int i = begin; i <= end; ret.add(
-                ((end > 12 ? "0000" : "00") + Integer.toString(i)).substring(Integer.toString(i++).length())))
-            ;
+                ((end > 12 ? "0000" : "00") + Integer.toString(i)).substring(Integer.toString(i++).length())));
 
         return ret;
     }

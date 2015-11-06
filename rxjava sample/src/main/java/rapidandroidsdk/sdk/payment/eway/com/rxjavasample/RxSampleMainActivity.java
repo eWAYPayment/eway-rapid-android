@@ -94,12 +94,6 @@ public class RxSampleMainActivity extends AppCompatActivity {
         try {
             progressDialog = ProgressDialog.show(RxSampleMainActivity.this, "Processing", "Processing payment", true);
             fetchDataFromForm();
-            totalamount = "200";
-            cardName = "Jhon Smith";
-            cardNumber = "4444333322221111";
-            cvnNumber = "123";
-            expMonth = "12";
-            expYear = "2025";
             payment.setTotalAmount(Integer.parseInt(totalamount));
             cardDetails.setName(cardName);
             fetchEncryptData(cardNumber, cvnNumber);
