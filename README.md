@@ -47,17 +47,17 @@ compile "com.eway.payment:android-sdk:1.+"
 
 ## Usage
 
-For the a complete guide to using the eWAY Android SDK, check out the [Getting Started]((https://www.eway.com.au/developers/sdk/android)) guide along with the example projects.
+For the a complete guide to using the eWAY Android SDK, check out the [Getting Started guide](https://www.eway.com.au/developers/sdk/android) along with the example projects.
 
 ## Example Projects
 
-Example projects are included in the eWAY Android SDK GitHub repository to demonstrate the available functions. There are three projects to demonstrate different scenario of the SDK; synchronous, asynchronous and rxjava. To view and use an example;
+Example projects are included in the eWAY Android SDK GitHub repository to demonstrate the available functions. There are three projects to demonstrate different implementations of the SDK; synchronous, asynchronous and rxjava. To view and use an example;
 
 1. Clone the repository to your development machine
 
-```
-git clone https://github.com/eWAYPayment/eway-rapid-android.git
-```
+    ```
+    git clone https://github.com/eWAYPayment/eway-rapid-android.git
+    ```
 
 2. Open the project in Android Studio and let Gradle sync. 
 3. Select a sample in Android Studio - optional: update the `PublicAPIKey` in the SampleMainActivity file to the one in your Sandbox.
