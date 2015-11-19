@@ -42,7 +42,10 @@ import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func0;
 import rx.functions.Func1;
+import rx.observables.AbstractOnSubscribe;
+import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
 public class RxSampleMainActivity extends AppCompatActivity {
@@ -118,40 +121,41 @@ public class RxSampleMainActivity extends AppCompatActivity {
 
 
       subscription = RapidAPI.rxEncryptValues(values)
-              .flatMap(new Func1<EncryptItemsResponse, Observable<SubmitPayResponse>>() {
+                  .flatMap(new Func1<EncryptItemsResponse, Observable<?>>() {
+                      @Override
+                      public Observable<?> call(final EncryptItemsResponse response) {
+                          if(response.getErrors()== null) {
+                              cardDetails.setNumber(response.getItems().get(0).getValue());
+                              cardDetails.setCVN(response.getItems().get(1).getValue());
+                              cardDetails.setExpiryMonth(expMonth);
+                              cardDetails.setExpiryYear(expYear);
+                              customer.setCardDetails(cardDetails);
+                              transaction.setTransactionType(TransactionType.valueOf((transTypes.isEmpty() ? TransactionType.Purchase.toString() : transTypes.toString())));
+                              transaction.setPayment(payment);
+                              transaction.setCustomer(customer);
+                              return RapidAPI.rxSubmitPayment(transaction);
+                          }else
+                             return RapidAPI.rxUserMessage(Locale.getDefault().getLanguage(), response.getErrors());
+                      }
+                  })
+              .flatMap(new Func1<Object, Observable<?>>() {
                   @Override
-                  public Observable<SubmitPayResponse> call(final EncryptItemsResponse response) {
-                      if (response.getErrors() == null) {
-                          cardDetails.setNumber(response.getItems().get(0).getValue());
-                          cardDetails.setCVN(response.getItems().get(1).getValue());
-                          cardDetails.setExpiryMonth(expMonth);
-                          cardDetails.setExpiryYear(expYear);
-                          customer.setCardDetails(cardDetails);
-                          transaction.setTransactionType(TransactionType.valueOf((transTypes.isEmpty() ? TransactionType.Purchase.toString() : transTypes.toString())));
-                          transaction.setPayment(payment);
-                          transaction.setCustomer(customer);
-                          return RapidAPI.rxSubmitPayment(transaction);
-                      } else {
-                          final SubmitPayResponse submitResp = new SubmitPayResponse();
-                          return Observable.create(new Observable.OnSubscribe<SubmitPayResponse>() {
+                  public Observable<?> call(final Object o) {
+                      if (((SubmitPayResponse) o).getErrors() == null) {
+                          return Observable.create(new Observable.OnSubscribe<Object>() {
                               @Override
-                              public void call(Subscriber<? super SubmitPayResponse> subscriber) {
-                                  RapidAPI.rxUserMessage(Locale.getDefault().getLanguage(), response.getErrors())
-                                          .subscribe(new Action1<UserMessageResponse>() {
-                                              @Override
-                                              public void call(UserMessageResponse userMessageResponse) {
-                                                  submitResp.setErrors(errorHandler(userMessageResponse.getErrorMessages()));
-                                              }
-                                          });
-                                  subscriber.onNext(submitResp);
+                              public void call(Subscriber<? super Object> subscriber) {
+                                  subscriber.onNext(o);
                               }
                           });
+                      } else {
+                          return RapidAPI.rxUserMessage(Locale.getDefault().getLanguage(),((SubmitPayResponse) o).getErrors());
                       }
 
                   }
-
-              }).observeOn(AndroidSchedulers.mainThread())
-              .subscribe(new Observer<SubmitPayResponse>() {
+              })
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(new Observer<Object>() {
                   @Override
                   public void onCompleted() {
 
@@ -159,15 +163,15 @@ public class RxSampleMainActivity extends AppCompatActivity {
 
                   @Override
                   public void onError(Throwable e) {
-                       alertDialogResponse(e.getMessage());
+                      alertDialogResponse(e.getMessage());
                   }
 
                   @Override
-                  public void onNext(SubmitPayResponse response) {
-                      if (response.getErrors() != null) {
-                          alertDialogResponse(response.getErrors());
-                      } else {
-                          alertDialogResponse(response.getAccessCode());
+                  public void onNext(Object response) {
+                      if (response instanceof SubmitPayResponse) {
+                          alertDialogResponse(((SubmitPayResponse) response).getAccessCode());
+                      } else if ( response instanceof UserMessageResponse){
+                          alertDialogResponse(errorHandler(((UserMessageResponse) response).getErrorMessages()));
                       }
                   }
               });

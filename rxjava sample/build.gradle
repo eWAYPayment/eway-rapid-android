@@ -32,6 +32,6 @@ dependencies {
     compile 'com.android.support:design:23.1.0'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
-    compile 'com.eway.payment:android-sdk:1.2'
-    //compile project(':sdk')
+    //compile 'com.eway.payment:android-sdk:1.2'
+    compile project(':sdk')
 }
