@@ -42,7 +42,7 @@ repositories {
 Then add the dependency to the dependencies section of app’s `build.gradle`:
 
 ```
-compile "com.eway.payment:android-sdk:1.+"
+compile "com.eway.payment:android-sdk:1.2"
 ```
 
 ## Usage
