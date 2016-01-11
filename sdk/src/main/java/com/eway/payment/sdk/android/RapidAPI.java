@@ -618,8 +618,8 @@ public class RapidAPI {
     }
 
     public static String changeUrl(String url) throws RapidConfigurationException {
-        errorCheck();
         String baseUrl = url;
+        errorCheck();
         if (PRODUCTION.equalsIgnoreCase(baseUrl)) {
             baseUrl = PRODUCTION_URL;
         } else if (SANDBOX.equalsIgnoreCase(baseUrl)) {
