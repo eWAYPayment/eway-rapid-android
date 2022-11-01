@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":synchronous sample:main" external.linked.project.path="$MODULE_DIR$/../../../synchronous sample" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.type="sourceSet" type="JAVA_MODULE" version="4">
+  <component name="FacetManager">
+    <facet type="android" name="Android">
+      <configuration>
+        <option name="SELECTED_BUILD_VARIANT" value="debug" />
+        <option name="ASSEMBLE_TASK_NAME" value="assembleDebug" />
+        <option name="COMPILE_JAVA_TASK_NAME" value="compileDebugSources" />
+        <afterSyncTasks>
+          <task>generateDebugSources</task>
+        </afterSyncTasks>
+        <option name="ALLOW_USER_CONFIGURATION" value="false" />
+        <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
+        <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
+        <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../synchronous sample/src/main/res;file://$MODULE_DIR$/../../../synchronous sample/src/debug/res;file://$MODULE_DIR$/../../../synchronous sample/build/generated/res/rs/debug" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../synchronous sample/src/androidTest/res;file://$MODULE_DIR$/../../../synchronous sample/src/androidTestDebug/res;file://$MODULE_DIR$/../../../synchronous sample/build/generated/res/rs/androidTest/debug" />
+        <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
+      </configuration>
+    </facet>
+  </component>
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_7" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../synchronous sample/build/generated/aidl_source_output_dir/debug/out" />
+    <content url="file://$MODULE_DIR$/../../../synchronous sample/build/generated/ap_generated_sources/debug/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../../synchronous sample/build/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../synchronous sample/build/generated/renderscript_source_output_dir/debug/out" />
+    <content url="file://$MODULE_DIR$/../../../synchronous sample/build/generated/res/rs/debug" />
+    <content url="file://$MODULE_DIR$/../../../synchronous sample/build/generated/source/buildConfig/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../synchronous sample/build/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
+    </content>
+    <content url="file://$MODULE_DIR$/../../../synchronous sample/src/debug" />
+    <content url="file://$MODULE_DIR$/../../../synchronous sample/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../synchronous sample/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../synchronous sample/src/main/res" type="java-resource" />
+    </content>
+    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: F./Workspace/Github/eway-rapid-android/synchronous sample/libs/android-sdk.jar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-annotations:23.1.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.jakewharton:butterknife:7.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.retrofit:converter-gson:2.0.0-beta2" level="project" />
+    <orderEntry type="library" name="Gradle: com.google.code.gson:gson:2.10" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.retrofit:adapter-rxjava:2.0.0-beta2" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.retrofit:retrofit:2.0.0-beta2" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okhttp:okhttp:2.5.0" level="project" />
+    <orderEntry type="library" name="Gradle: com.squareup.okio:okio:1.6.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.reactivex:rxjava:1.1.6" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:design:23.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:appcompat-v7:23.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:recyclerview-v7:23.1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.android.support:support-v4:23.1.1@aar" level="project" />
+    <orderEntry type="library" name="Gradle: io.reactivex:rxandroid:1.2.1@aar" level="project" />
+  </component>
+</module>

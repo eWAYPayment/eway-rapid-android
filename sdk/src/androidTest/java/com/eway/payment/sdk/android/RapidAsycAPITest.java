@@ -2,14 +2,12 @@ package com.eway.payment.sdk.android;
 
 
 import android.test.InstrumentationTestCase;
-import android.test.UiThreadTest;
-import android.test.suitebuilder.annotation.MediumTest;
+
 
 import com.eway.payment.sdk.android.beans.Address;
 import com.eway.payment.sdk.android.beans.CardDetails;
 import com.eway.payment.sdk.android.beans.Customer;
 import com.eway.payment.sdk.android.beans.LineItem;
-import com.eway.payment.sdk.android.beans.NVPair;
 import com.eway.payment.sdk.android.beans.Payment;
 import com.eway.payment.sdk.android.beans.ShippingDetails;
 import com.eway.payment.sdk.android.beans.ShippingMethod;
@@ -17,12 +15,8 @@ import com.eway.payment.sdk.android.beans.Transaction;
 import com.eway.payment.sdk.android.beans.TransactionType;
 import com.eway.payment.sdk.android.entities.EncryptItemsResponse;
 import com.eway.payment.sdk.android.entities.SubmitPayResponse;
-import com.eway.payment.sdk.android.entities.UserMessageResponse;
-import com.squareup.okhttp.ResponseBody;
 
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class RapidAsycAPITest extends InstrumentationTestCase implements RapidAPI.RapidRecordingTransactionListener,RapidAPI.RapidEncryptValuesListener {
     public static final String ENDPOINT = "https://api.sandbox.ewaypayments.com/staging-au/";

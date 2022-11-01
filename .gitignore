@@ -5,3 +5,5 @@
 .DS_Store
 /build
 /captures
+sdk/local.properties
+.idea
