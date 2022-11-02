@@ -52,10 +52,10 @@ buildscript {
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10'
-    implementation 'com.squareup.retrofit:retrofit:2.0.0-beta2'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'io.reactivex:rxandroid:1.2.1'
-    implementation 'com.squareup.retrofit:adapter-rxjava:2.0.0-beta2'
-    implementation 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
+    implementation 'com.squareup.retrofit2:adapter-rxjava:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.android.support:support-v4:23.1.1'
 }
 

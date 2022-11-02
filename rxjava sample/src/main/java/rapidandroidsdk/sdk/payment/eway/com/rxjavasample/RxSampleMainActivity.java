@@ -24,10 +24,6 @@ import com.eway.payment.sdk.android.entities.EncryptItemsResponse;
 import com.eway.payment.sdk.android.entities.SubmitPayResponse;
 import com.eway.payment.sdk.android.entities.UserMessageResponse;
 
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -41,11 +37,7 @@ import rx.Observer;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func0;
 import rx.functions.Func1;
-import rx.observables.AbstractOnSubscribe;
-import rx.schedulers.Schedulers;
 import rx.subscriptions.Subscriptions;
 
 public class RxSampleMainActivity extends AppCompatActivity {

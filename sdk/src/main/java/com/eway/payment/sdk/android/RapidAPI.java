@@ -1,7 +1,5 @@
 package com.eway.payment.sdk.android;
 
-import android.util.Base64;
-
 import com.eway.payment.sdk.android.beans.CodeDetail;
 import com.eway.payment.sdk.android.beans.NVPair;
 import com.eway.payment.sdk.android.beans.Transaction;
@@ -12,30 +10,35 @@ import com.eway.payment.sdk.android.entities.EncryptValuesRequest;
 import com.eway.payment.sdk.android.entities.SubmitPayResponse;
 import com.eway.payment.sdk.android.entities.SubmitPaymentRequest;
 import com.eway.payment.sdk.android.entities.UserMessageResponse;
-import com.squareup.okhttp.Credentials;
-import com.squareup.okhttp.Interceptor;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import retrofit.Call;
-import retrofit.Callback;
-import retrofit.GsonConverterFactory;
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
+import javax.security.cert.CertificateException;
 
-import retrofit.Response;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
-import retrofit.http.Body;
-import retrofit.http.Headers;
-import retrofit.http.POST;
+import okhttp3.Credentials;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
+import retrofit2.http.Headers;
+import retrofit2.http.POST;
 import rx.Observable;
-
 import rx.Subscriber;
-import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -54,7 +57,8 @@ public class RapidAPI {
     public static String PublicAPIKey;
 
 
-    private RapidAPI() {}
+    private RapidAPI() {
+    }
 
     // Synchronous payment
     public static SubmitPayResponse submitPayment(Transaction transaction) throws IOException, RapidConfigurationException {
@@ -66,7 +70,7 @@ public class RapidAPI {
             SubmitPaymentRequest request = buildSubmitRequest(transaction);
             Call<SubmitPayResponse> call = callPost().submitPayment(request);
             Response<SubmitPayResponse> submitPayResponse = call.execute();
-            if(submitPayResponse.errorBody() != null)
+            if (submitPayResponse.errorBody() != null)
                 errorList(submitPayResponse.code());
 
             return submitPayResponse.body();
@@ -75,8 +79,9 @@ public class RapidAPI {
             throw new RapidConfigurationException(response.getErrors());
         }
     }
+
     // Asynchronous payment using callback
-    public static void asycSubmitPayment(Transaction transaction, final RapidRecordingTransactionListener callback){
+    public static void asycSubmitPayment(Transaction transaction, final RapidRecordingTransactionListener callback) {
         try {
             errorCheck();
             if (transaction == null) {
@@ -85,8 +90,8 @@ public class RapidAPI {
             SubmitPaymentRequest request = buildSubmitRequest(transaction);
             callPost().submitPayment(request).enqueue(new Callback<SubmitPayResponse>() {
                 @Override
-                public void onResponse(Response<SubmitPayResponse> response, Retrofit retrofit) {
-                    if (response.isSuccess()) {
+                public void onResponse(Call<SubmitPayResponse> call, Response<SubmitPayResponse> response) {
+                    if (response.isSuccessful()) {
                         if (response.body().getErrors() == null) {
                             callback.onResponseReceivedSuccess(response.body());
                         } else {
@@ -106,11 +111,11 @@ public class RapidAPI {
                 }
 
                 @Override
-                public void onFailure(Throwable t) {
+                public void onFailure(Call<SubmitPayResponse> call, Throwable t) {
                     callback.onResponseReceivedFailure(t.getMessage());
                 }
             });
-        }catch (RapidConfigurationException ex){
+        } catch (RapidConfigurationException ex) {
             try {
                 callback.onResponseReceivedException(new SubmitPayResponse(ex.getErrorCodes(), null, null));
             } catch (RapidConfigurationException e) {
@@ -120,7 +125,7 @@ public class RapidAPI {
     }
 
     //rxJava SubmitPayment
-    public static Observable<SubmitPayResponse> rxSubmitPayment(Transaction transaction)  {
+    public static Observable<SubmitPayResponse> rxSubmitPayment(Transaction transaction) {
         try {
             errorCheck();
             if (transaction == null) {
@@ -187,27 +192,28 @@ public class RapidAPI {
         try {
             errorCheck();
             EncryptValuesRequest request = buildEncryptValues(Values);
-            Call<EncryptItemsResponse> call =callPost().encryptValues(request);
+            Call<EncryptItemsResponse> call = callPost().encryptValues(request);
             Response<EncryptItemsResponse> encryptValuesRequestResponse = call.execute();
 
-            if(encryptValuesRequestResponse.errorBody()!= null) {
-              errorList(encryptValuesRequestResponse.raw().code());
+            if (encryptValuesRequestResponse.errorBody() != null) {
+                errorList(encryptValuesRequestResponse.raw().code());
             }
             return encryptValuesRequestResponse.body();
         } catch (RapidConfigurationException e) {
-            return new EncryptItemsResponse(e.getErrorCodes(), null,String.valueOf(0));
+            return new EncryptItemsResponse(e.getErrorCodes(), null, String.valueOf(0));
         }
     }
+
     // Asynchronous Encryption
-    public static void asycEncryptValues(ArrayList<NVPair> Values, final RapidEncryptValuesListener callback){
+    public static void asycEncryptValues(ArrayList<NVPair> Values, final RapidEncryptValuesListener callback) {
         try {
             errorCheck();
             final EncryptValuesRequest request = buildEncryptValues(Values);
             callPost().encryptValues(request).enqueue(new Callback<EncryptItemsResponse>() {
                 @Override
-                public void onResponse(Response<EncryptItemsResponse> response, Retrofit retrofit) {
+                public void onResponse(Call<EncryptItemsResponse> call, Response<EncryptItemsResponse> response) {
 
-                    if (response.isSuccess()) {
+                    if (response.isSuccessful()) {
                         if (response.body().getErrors() == null) {
                             callback.onResponseReceivedSuccess(response.body());
                         } else {
@@ -227,11 +233,11 @@ public class RapidAPI {
                 }
 
                 @Override
-                public void onFailure(Throwable t) {
+                public void onFailure(Call<EncryptItemsResponse> call, Throwable t) {
                     callback.onResponseReceivedFailure(t.getMessage());
                 }
             });
-        }catch (RapidConfigurationException ex){
+        } catch (RapidConfigurationException ex) {
             try {
                 callback.onResponseReceivedException(new EncryptItemsResponse(ex.getErrorCodes(), null, String.valueOf(0)));
             } catch (RapidConfigurationException e) {
@@ -239,6 +245,7 @@ public class RapidAPI {
             }
         }
     }
+
     // rxJava Encryption
     public static Observable<EncryptItemsResponse> rxEncryptValues(ArrayList<NVPair> Values) {
         try {
@@ -302,8 +309,8 @@ public class RapidAPI {
     //Synchronous UserMessage
     public static UserMessageResponse userMessage(String Language, String ErrorCodes) throws IOException, RapidConfigurationException {
         try {
-            Call<CodeLookupResponse> call =callPost().codeLookUp(new CodeLookupRequest(nullSafeGetLocale(Language), parseErrorCodeList(ErrorCodes)));
-            Response <CodeLookupResponse> codeLookupResponse = call.execute();
+            Call<CodeLookupResponse> call = callPost().codeLookUp(new CodeLookupRequest(nullSafeGetLocale(Language), parseErrorCodeList(ErrorCodes)));
+            Response<CodeLookupResponse> codeLookupResponse = call.execute();
             ArrayList<String> errorMessages = new ArrayList<>();
             for (CodeDetail codeDetail : codeLookupResponse.body().getCodeDetails()) {
                 errorMessages.add(codeDetail.getDisplayMessage());
@@ -313,20 +320,21 @@ public class RapidAPI {
             return new UserMessageResponse(null, e.getErrorCodes());
         }
     }
-   //asynchronous userMessage
-    public static void asycUserMessage(String Language, String ErrorCodes,final RapidUserMessageListener callback) throws RapidConfigurationException {
-        callPost().codeLookUp(new CodeLookupRequest(nullSafeGetLocale(Language),parseErrorCodeList(ErrorCodes)))
+
+    //asynchronous userMessage
+    public static void asycUserMessage(String Language, String ErrorCodes, final RapidUserMessageListener callback) throws RapidConfigurationException {
+        callPost().codeLookUp(new CodeLookupRequest(nullSafeGetLocale(Language), parseErrorCodeList(ErrorCodes)))
                 .enqueue(new Callback<CodeLookupResponse>() {
                     @Override
-                    public void onResponse(Response<CodeLookupResponse> response, Retrofit retrofit) {
-                        if (response.isSuccess()) {
-                            if(response.body().getErrors()==null) {
+                    public void onResponse(Call<CodeLookupResponse> call, Response<CodeLookupResponse> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body().getErrors() == null) {
                                 ArrayList<String> errorMessages = new ArrayList<>();
                                 for (CodeDetail codeDetail : response.body().getCodeDetails()) {
                                     errorMessages.add(codeDetail.getDisplayMessage());
                                 }
-                                callback.onResponseReceivedSuccess(new UserMessageResponse(errorMessages,null));
-                            }else {
+                                callback.onResponseReceivedSuccess(new UserMessageResponse(errorMessages, null));
+                            } else {
                                 callback.onResponseReceivedError(response.body().getErrors());
                             }
 
@@ -335,25 +343,27 @@ public class RapidAPI {
                                 errorList(response.code());
                             } catch (RapidConfigurationException e) {
                                 try {
-                                    callback.onResponseReceivedException(new UserMessageResponse(null,e.getErrorCodes()));
+                                    callback.onResponseReceivedException(new UserMessageResponse(null, e.getErrorCodes()));
                                 } catch (RapidConfigurationException e1) {
                                     e1.printStackTrace();
                                 }
                             }
                         }
                     }
+
                     @Override
-                    public void onFailure(Throwable t) {
+                    public void onFailure(Call<CodeLookupResponse> call, Throwable t) {
                         callback.onResponseReceivedFailure(t.getMessage());
                     }
                 });
 
     }
+
     // rxJava UserMessage
     public static Observable<UserMessageResponse> rxUserMessage(String Language, String ErrorCodes) {
         try {
             errorCheck();
-            return rxCallPost().rxCodeLookUp(new CodeLookupRequest(nullSafeGetLocale(Language),parseErrorCodeList(ErrorCodes)))
+            return rxCallPost().rxCodeLookUp(new CodeLookupRequest(nullSafeGetLocale(Language), parseErrorCodeList(ErrorCodes)))
                     .observeOn(Schedulers.io())
                     .onErrorResumeNext(new Func1<Throwable, Observable<? extends CodeLookupResponse>>() {
                         @Override
@@ -418,13 +428,13 @@ public class RapidAPI {
     }
 
 //=================================================================================
+
     /**
-    * Retrofit Adapters
-    *
-    ***/
+     * Retrofit Adapters
+     ***/
 
     // Adapter Asynchronous and Synchronous call post for  Encryption
-    protected static rapidAndroidApi callPost() throws RapidConfigurationException{
+    protected static rapidAndroidApi callPost() throws RapidConfigurationException {
         //Restful call
         String baseUrl = changeUrl(RapidEndpoint);
 
@@ -440,7 +450,7 @@ public class RapidAPI {
     }
 
     //Adapter for Asynchronous call rxjava
-    protected static rapidAndroidApi rxCallPost() throws RapidConfigurationException{
+    protected static rapidAndroidApi rxCallPost() throws RapidConfigurationException {
         //Restful call
         String baseUrl = changeUrl(RapidEndpoint);
         Retrofit retrofit = new Retrofit.Builder()
@@ -459,11 +469,12 @@ public class RapidAPI {
 
     /**
      * Submit Request
+     *
      * @param transaction
      * @return
      */
 
-    public static SubmitPaymentRequest buildSubmitRequest(Transaction transaction){
+    public static SubmitPaymentRequest buildSubmitRequest(Transaction transaction) {
 
         SubmitPaymentRequest request = new SubmitPaymentRequest();
         request.setMethod(PROCESSPAYMENT);
@@ -483,11 +494,12 @@ public class RapidAPI {
 
     /**
      * Encryption request
+     *
      * @param Values
      * @return
      */
 
-    public static EncryptValuesRequest buildEncryptValues(ArrayList<NVPair> Values){
+    public static EncryptValuesRequest buildEncryptValues(ArrayList<NVPair> Values) {
 
         EncryptValuesRequest request = new EncryptValuesRequest();
         request.setMethod(ECRYPT);
@@ -496,10 +508,11 @@ public class RapidAPI {
     }
 
 //====================================================================================
+
     /**
      * rapidAndroidApi (Retrofit)
      */
-    public interface rapidAndroidApi{
+    public interface rapidAndroidApi {
 
         // Asynchronous or synchronous api
         @Headers("Content-Type: application/json")
@@ -528,36 +541,36 @@ public class RapidAPI {
 
     }
 //=============================================================================================
+
     /**
      * OkhttpClient
+     *
      * @return
      * @throws RapidConfigurationException
      */
 
     private static OkHttpClient getEwayClient() throws RapidConfigurationException {
-        OkHttpClient client = new OkHttpClient();
-
-        client.interceptors().add(new Interceptor() {
+        OkHttpClient.Builder builder = getUnsafeOkHttpClient();
+        builder.interceptors().add(new Interceptor() {
             @Override
-            public com.squareup.okhttp.Response intercept(Chain chain) throws IOException {
+            public okhttp3.Response intercept(Chain chain) throws IOException {
                 String credential = Credentials.basic(PublicAPIKey, "");
                 Request originalRequest = chain.request();
                 Request.Builder requestBuilder = originalRequest.newBuilder()
                         .header("Authorization", credential)
-                        .header("User-Agent",";eWAY SDK Android " + VERSIONREPORTED)
-                        .method(originalRequest.method(),originalRequest.body());
+                        .header("User-Agent", ";eWAY SDK Android " + VERSIONREPORTED)
+                        .method(originalRequest.method(), originalRequest.body());
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
             }
         });
-        client.setConnectTimeout(3, TimeUnit.MINUTES);
-        client.setReadTimeout(3, TimeUnit.MINUTES);
-        return client;
-
+        builder.connectTimeout(3, TimeUnit.MINUTES);
+        builder.readTimeout(3, TimeUnit.MINUTES);
+        return builder.build();
     }
 //===================================================================================
 
-    public interface RapidRecordingTransactionListener{
+    public interface RapidRecordingTransactionListener {
 
         void onResponseReceivedSuccess(SubmitPayResponse response);
 
@@ -568,7 +581,7 @@ public class RapidAPI {
         void onResponseReceivedException(SubmitPayResponse exception);
     }
 
-    public interface RapidEncryptValuesListener{
+    public interface RapidEncryptValuesListener {
 
         void onResponseReceivedSuccess(EncryptItemsResponse response);
 
@@ -580,7 +593,7 @@ public class RapidAPI {
 
     }
 
-    public interface RapidUserMessageListener{
+    public interface RapidUserMessageListener {
 
         void onResponseReceivedSuccess(UserMessageResponse response);
 
@@ -593,10 +606,10 @@ public class RapidAPI {
     }
 
 
-    private static void errorList(int responseCode)throws RapidConfigurationException{
-        if(responseCode == 401)
+    private static void errorList(int responseCode) throws RapidConfigurationException {
+        if (responseCode == 401)
             throw new RapidConfigurationException("S9993");
-        if(responseCode == 443)
+        if (responseCode == 443)
             throw new RapidConfigurationException("S9991");
 
         throw new RapidConfigurationException("S9992");
@@ -604,7 +617,7 @@ public class RapidAPI {
     }
 
 
-    private static void errorCheck() throws RapidConfigurationException{
+    private static void errorCheck() throws RapidConfigurationException {
         if (PublicAPIKey == null || PublicAPIKey.isEmpty()) {
             throw new RapidConfigurationException("S9991");
         }
@@ -612,9 +625,9 @@ public class RapidAPI {
             throw new RapidConfigurationException("S9990");
         }
 
-        String urlPattern="^http(s{0,1})://[a-zA-Z0-9_/\\-\\.]+\\.([A-Za-z/]{2,5})[a-zA-Z0-9_/\\&\\?\\=\\-\\.\\~\\%]*";
-         if(!RapidEndpoint.matches(urlPattern))
-             throw new RapidConfigurationException("S9992");
+        String urlPattern = "^http(s{0,1})://[a-zA-Z0-9_/\\-\\.]+\\.([A-Za-z/]{2,5})[a-zA-Z0-9_/\\&\\?\\=\\-\\.\\~\\%]*";
+        if (!RapidEndpoint.matches(urlPattern))
+            throw new RapidConfigurationException("S9992");
     }
 
     public static String changeUrl(String url) throws RapidConfigurationException {
@@ -628,7 +641,42 @@ public class RapidAPI {
         return baseUrl;
     }
 
+    private static OkHttpClient.Builder getUnsafeOkHttpClient() {
+        try {
+            final TrustManager[] trustAllCerts = new TrustManager[]{
+                    new X509TrustManager() {
+                        @Override
+                        public void checkClientTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                        }
 
+                        @Override
+                        public void checkServerTrusted(java.security.cert.X509Certificate[] chain, String authType) {
+                        }
 
+                        @Override
+                        public java.security.cert.X509Certificate[] getAcceptedIssuers() {
+                            return new java.security.cert.X509Certificate[]{};
+                        }
+                    }
+            };
+
+            final SSLContext sslContext = SSLContext.getInstance("SSL");
+            sslContext.init(null, trustAllCerts, new java.security.SecureRandom());
+
+            final SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+            OkHttpClient.Builder builder = new OkHttpClient.Builder();
+            builder.sslSocketFactory(sslSocketFactory, (X509TrustManager) trustAllCerts[0]);
+            builder.hostnameVerifier(new HostnameVerifier() {
+                @Override
+                public boolean verify(String hostname, SSLSession session) {
+                    return true;
+                }
+            });
+            return builder;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 }
