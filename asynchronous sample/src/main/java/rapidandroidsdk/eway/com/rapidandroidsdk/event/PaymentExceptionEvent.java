@@ -1,6 +1,6 @@
 package rapidandroidsdk.eway.com.rapidandroidsdk.event;
 
-import com.eway.payment.sdk.android.beans.Payment;
+import com.ewaypayments.sdk.android.beans.Payment;
 
 /**
  * Created by alexanderparra on 1/11/15.

@@ -1,9 +1,9 @@
 package rapidandroidsdk.eway.com.rapidandroidsdk.async;
 
-import com.eway.payment.sdk.android.RapidAPI;
-import com.eway.payment.sdk.android.RapidConfigurationException;
-import com.eway.payment.sdk.android.entities.SubmitPayResponse;
-import com.eway.payment.sdk.android.entities.UserMessageResponse;
+import com.ewaypayments.sdk.android.RapidAPI;
+import com.ewaypayments.sdk.android.RapidConfigurationException;
+import com.ewaypayments.sdk.android.entities.SubmitPayResponse;
+import com.ewaypayments.sdk.android.entities.UserMessageResponse;
 import com.squareup.otto.Produce;
 
 import java.util.ArrayList;

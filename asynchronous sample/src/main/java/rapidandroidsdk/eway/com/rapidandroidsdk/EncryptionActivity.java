@@ -10,9 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.eway.payment.sdk.android.RapidConfigurationException;
-import com.eway.payment.sdk.android.beans.NVPair;
-import com.eway.payment.sdk.android.beans.TransactionType;
+import com.ewaypayments.sdk.android.RapidConfigurationException;
+import com.ewaypayments.sdk.android.beans.NVPair;
+import com.ewaypayments.sdk.android.beans.TransactionType;
 import com.squareup.otto.Subscribe;
 
 import java.util.List;

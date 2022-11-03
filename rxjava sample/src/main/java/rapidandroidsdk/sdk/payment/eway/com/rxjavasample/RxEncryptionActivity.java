@@ -13,9 +13,9 @@ import android.view.View;
 import android.sdk.payment.eway.com.rxjavasample.R;
 import android.widget.EditText;
 
-import com.eway.payment.sdk.android.RapidAPI;
-import com.eway.payment.sdk.android.beans.NVPair;
-import com.eway.payment.sdk.android.entities.EncryptItemsResponse;
+import com.ewaypayments.sdk.android.RapidAPI;
+import com.ewaypayments.sdk.android.beans.NVPair;
+import com.ewaypayments.sdk.android.entities.EncryptItemsResponse;
 
 import java.util.ArrayList;
 

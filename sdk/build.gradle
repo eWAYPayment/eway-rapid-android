@@ -16,8 +16,8 @@ buildscript {
     apply plugin: 'com.android.library'
     apply plugin: 'maven'
 
-    group = 'com.eway.payment'
-    version = '1.2'
+    group = 'com.ewaypayments'
+    version = '2.0'
 
     android {
         compileSdkVersion 23
@@ -64,7 +64,7 @@ dependencies {
     uploadArchives {
         repositories {
             mavenDeployer{
-                pom.groupId = 'com.eway.payment'
+                pom.groupId = 'com.ewaypayments'
                 pom.artifactId = 'android-sdk'
                 pom.version = version
                 // Add other pom properties here if you want (developer details / licenses)
