@@ -33,15 +33,13 @@ repositories {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation files('libs\\android-sdk.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:23.1.0'
     implementation 'com.android.support:design:23.1.0'
     implementation 'com.jakewharton:butterknife:7.0.1'
     annotationProcessor 'com.jakewharton:butterknife:7.0.1'
-    // api 'com.eway.payment:android-sdk:1.2'
-    // api project(':sdk')
+    // implementation 'com.eway.payment:android-sdk:1.2'
     implementation 'com.google.code.gson:gson:2.10'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'io.reactivex:rxandroid:1.2.1'

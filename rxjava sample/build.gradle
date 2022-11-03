@@ -36,8 +36,7 @@ repositories {
     google()
 }
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation files('libs\\android-sdk.jar')
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:23.1.0'
     implementation 'com.jakewharton:butterknife:7.0.1'
