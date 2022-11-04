@@ -8,47 +8,44 @@ buildscript {
         classpath 'com.android.tools.build:gradle:3.6.4'
     }
 }
-    repositories {
-        mavenCentral()
-        google()
+repositories {
+    mavenCentral()
+    google()
+}
+
+apply plugin: 'com.android.library'
+apply plugin: 'maven'
+
+android {
+    compileSdkVersion 33
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+    }
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
     }
 
-    apply plugin: 'com.android.library'
-    apply plugin: 'maven'
-
-    group = 'com.ewaypayments'
-    version = '2.0'
-
-    android {
-        compileSdkVersion 23
-
-        defaultConfig {
-            minSdkVersion 17
-            targetSdkVersion 23
-            versionCode 1
-            versionName "1.0"
-        }
-        lintOptions {
-            checkReleaseBuilds false
-            abortOnError false
-        }
-        buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            }
-        }
-
-        task makeJar(type: Copy) {
-            delete 'build/libs/android-sdk.jar'
-            from('build/intermediates/aar_main_jar/release/')
-            into('build/libs/')
-            include('classes.jar')
-            rename ('classes.jar', 'android-sdk.jar')
-        }
-
-        makeJar.dependsOn(build)
+    task makeJar(type: Copy) {
+        delete 'build/libs/android-sdk.jar'
+        from('build/intermediates/aar_main_jar/release/')
+        into('build/libs/')
+        include('classes.jar')
+        rename('classes.jar', 'android-sdk.jar')
     }
+
+    makeJar.dependsOn(build)
+}
 
 dependencies {
     implementation 'com.google.code.gson:gson:2.10'
@@ -56,19 +53,25 @@ dependencies {
     implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-    implementation 'com.android.support:support-v4:23.1.1'
+    implementation 'com.android.support:support-v4:23.4.0'
 }
 
+ext {
+    PUBLISH_GROUP_ID = "com.ewaypayments"
+    PUBLISH_ARTIFACT_ID = 'android-sdk'
+    PUBLISH_VERSION = '2.0.1'
+}
 
-
-    uploadArchives {
-        repositories {
-            mavenDeployer{
-                pom.groupId = 'com.ewaypayments'
-                pom.artifactId = 'android-sdk'
-                pom.version = version
-                // Add other pom properties here if you want (developer details / licenses)
-                repository(url: "file:///F:/Output/")
-            }
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.groupId = PUBLISH_GROUP_ID
+            pom.artifactId = PUBLISH_ARTIFACT_ID
+            pom.version = PUBLISH_VERSION
+            // Add other pom properties here if you want (developer details / licenses)
+            repository(url: "file:///F:/Output/")
         }
     }
+}
+
+apply from: '../publish.gradle'
