@@ -38,7 +38,7 @@ publishing {
 
             pom {
                 name = PUBLISH_ARTIFACT_ID
-                description = 'An eWAY Rapid Android'
+                description = 'An eWAY Rapid Android SDK'
                 url = 'https://github.com/eWAYPayment/eway-rapid-android'
                 licenses {
                     license {
