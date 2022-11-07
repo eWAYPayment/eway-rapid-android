@@ -44,11 +44,11 @@ Then add the dependency to the dependencies section of app’s `build.gradle`:
 implementation 'com.ewaypayments:android-sdk:2.0.0'
 ```
 
-Note : Starting with version 2.0.0, we changed groupId from ```com.eway.payment``` to ```com.ewaypayments```, if you are using 2.0.0 and later version in your project, please modify the package reference in your project by yourself.
+Note : Starting with version 2.0.0, we changed groupId from `com.eway.payment` to `com.ewaypayments`, if you are using 2.0.0 and later version in your project, please modify the package reference in your project by yourself.
 
 ## Usage
 
-For the a complete guide to using the eWAY Android SDK, check out the [Getting Started guide](https://www.eway.com.au/developers/sdk/android) along with the example projects.
+For the a complete guide to using the eWAY Android SDK, check out the [Getting Started guide](https://go.eway.io/s/article/Android-SDK-Getting-Started?language=en_US) along with the example projects.
 
 ## Example Projects
 
