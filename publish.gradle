@@ -46,12 +46,6 @@ publishing {
                         url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                     }
                 }
-                developers {
-                    developer {
-                        id = 'eWAY'
-                        name = 'eWAY'
-                    }
-                }
                 scm {
                     connection = 'scm:git@github.com:eWAYPayment/eway-rapid-android.git'
                     developerConnection = 'scm:git:ssh://github.com/eWAYPayment/eway-rapid-android.git'
@@ -72,8 +66,8 @@ publishing {
     repositories {
         maven {
             name = "mavenCentral"
-            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
             url = PUBLISH_VERSION.endsWith("SNAPSHOT") ? snapshotsRepoUrl : releasesRepoUrl
             println PUBLISH_VERSION
             println url

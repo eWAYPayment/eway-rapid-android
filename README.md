@@ -34,16 +34,17 @@ Add the maven repository to your project's build gradle file under all projects:
 
 ```
 repositories {
-    jcenter()
-    maven { url "http://dl.bintray.com/webactive/maven" }
+    mavenCentral()
 }
 ```
 
 Then add the dependency to the dependencies section of app’s `build.gradle`:
 
 ```
-compile "com.eway.payment:android-sdk:1.2"
+implementation 'com.ewaypayments:android-sdk:2.0.0'
 ```
+
+Note : Starting with version 2.0.0, we changed groupId from ```com.eway.payment``` to ```com.ewaypayments```, if you are using 2.0.0 and later version in your project, please modify the package reference in your project by yourself.
 
 ## Usage
 
