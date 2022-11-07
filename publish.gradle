@@ -42,8 +42,15 @@ publishing {
                 url = 'https://github.com/eWAYPayment/eway-rapid-android'
                 licenses {
                     license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        name = 'MIT License (MIT)'
+                        url = 'https://github.com/eWAYPayment/eway-rapid-android/blob/master/LICENSE.md'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'eway'
+                        name = 'eWAY'
+                        email = 'partner@eway.com.au'
                     }
                 }
                 scm {
