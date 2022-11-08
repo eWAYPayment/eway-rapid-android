@@ -6,7 +6,7 @@ Quickly integrate eWAY payments into your Android app with this SDK! This SDK pr
  - Complete a payment on a user's Android device
  - Translate response messages to user friendly text
 
-Check out the [eWAY Android SDK Getting Started Guide](https://www.eway.com.au/developers/sdk/android) and the example projects for details on how to integrate eWAY with your app.
+Check out the [eWAY Android SDK Getting Started Guide](https://go.eway.io/s/article/Android-SDK-Getting-Started?language=en_US) and the example projects for details on how to integrate eWAY with your app.
 
 Sign up with eWAY at:
  - Australia:    https://www.eway.com.au/
