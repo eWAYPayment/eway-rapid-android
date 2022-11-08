@@ -13,16 +13,16 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.eway.payment.sdk.android.RapidAPI;
-import com.eway.payment.sdk.android.RapidConfigurationException;
-import com.eway.payment.sdk.android.beans.CardDetails;
-import com.eway.payment.sdk.android.beans.Customer;
-import com.eway.payment.sdk.android.beans.NVPair;
-import com.eway.payment.sdk.android.beans.Payment;
-import com.eway.payment.sdk.android.beans.Transaction;
-import com.eway.payment.sdk.android.beans.TransactionType;
-import com.eway.payment.sdk.android.entities.EncryptItemsResponse;
-import com.eway.payment.sdk.android.entities.SubmitPayResponse;
+import com.ewaypayments.sdk.android.RapidAPI;
+import com.ewaypayments.sdk.android.RapidConfigurationException;
+import com.ewaypayments.sdk.android.beans.CardDetails;
+import com.ewaypayments.sdk.android.beans.Customer;
+import com.ewaypayments.sdk.android.beans.NVPair;
+import com.ewaypayments.sdk.android.beans.Payment;
+import com.ewaypayments.sdk.android.beans.Transaction;
+import com.ewaypayments.sdk.android.beans.TransactionType;
+import com.ewaypayments.sdk.android.entities.EncryptItemsResponse;
+import com.ewaypayments.sdk.android.entities.SubmitPayResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;

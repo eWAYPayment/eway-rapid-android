@@ -2,6 +2,12 @@
 
 All notable changes will be documented in this file
 
+## 2.0.0
+
+- Move the SDk Maven repository from JCenter to MavenCentral
+- Modify the groupId from ```com.eway.payment``` to ```com.ewaypayments```
+- Updated some third-party packages that the SDK relies on
+
 ## 1.2
 
  - Major re-write of the eWAY Android SDK
@@ -10,3 +16,5 @@ All notable changes will be documented in this file
 ## 1.0
 
  - First release
+
+

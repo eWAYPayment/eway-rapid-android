@@ -9,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
 
-import com.eway.payment.sdk.android.RapidConfigurationException;
+import com.ewaypayments.sdk.android.RapidConfigurationException;
 import com.squareup.otto.Subscribe;
 
 import java.util.Locale;

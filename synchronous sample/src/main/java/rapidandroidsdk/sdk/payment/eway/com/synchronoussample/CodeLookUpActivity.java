@@ -11,9 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 
-import com.eway.payment.sdk.android.RapidAPI;
-import com.eway.payment.sdk.android.RapidConfigurationException;
-import com.eway.payment.sdk.android.entities.UserMessageResponse;
+import com.ewaypayments.sdk.android.RapidAPI;
+import com.ewaypayments.sdk.android.RapidConfigurationException;
+import com.ewaypayments.sdk.android.entities.UserMessageResponse;
 
 import java.io.IOException;
 import java.util.List;

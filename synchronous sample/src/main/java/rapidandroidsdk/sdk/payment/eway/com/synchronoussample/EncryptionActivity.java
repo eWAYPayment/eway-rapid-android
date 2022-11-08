@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.EditText;
 
-import com.eway.payment.sdk.android.RapidAPI;
-import com.eway.payment.sdk.android.RapidConfigurationException;
-import com.eway.payment.sdk.android.beans.NVPair;
-import com.eway.payment.sdk.android.entities.EncryptItemsResponse;
+import com.ewaypayments.sdk.android.RapidAPI;
+import com.ewaypayments.sdk.android.RapidConfigurationException;
+import com.ewaypayments.sdk.android.beans.NVPair;
+import com.ewaypayments.sdk.android.entities.EncryptItemsResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;

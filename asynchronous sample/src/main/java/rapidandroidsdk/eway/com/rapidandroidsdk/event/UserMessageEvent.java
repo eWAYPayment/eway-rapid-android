@@ -1,6 +1,6 @@
 package rapidandroidsdk.eway.com.rapidandroidsdk.event;
 
-import com.eway.payment.sdk.android.entities.UserMessageResponse;
+import com.ewaypayments.sdk.android.entities.UserMessageResponse;
 
 import java.util.ArrayList;
 

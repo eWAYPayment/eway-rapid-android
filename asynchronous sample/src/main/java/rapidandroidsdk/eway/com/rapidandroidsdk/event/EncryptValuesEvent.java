@@ -1,6 +1,6 @@
 package rapidandroidsdk.eway.com.rapidandroidsdk.event;
 
-import com.eway.payment.sdk.android.entities.EncryptItemsResponse;
+import com.ewaypayments.sdk.android.entities.EncryptItemsResponse;
 
 /**
  * Created by alexanderparra on 31/10/15.
